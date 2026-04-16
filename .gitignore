@@ -1,0 +1,6 @@
+# Logic: This covers both folders at once
+node_modules/
+.env
+.env.local
+dist/
+build/
