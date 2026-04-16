@@ -14,36 +14,39 @@ const UploadBox = ({ onUpload }) => {
 
   return (
     <div className="w-full max-w-xl mx-auto">
-      
+
       <h2 className="text-xl font-semibold text-gray-800 mb-4">
         Upload your file
       </h2>
 
-      <div className="border-2 border-dashed border-gray-300 rounded-xl p-8 
-                      flex flex-col items-center justify-center 
-                      text-center bg-gray-50 hover:bg-gray-100 
-                      transition-all duration-200">
+      <div
+        className="p-6 bg-white border border-gray-200 rounded-lg shadow shadow-black/10"
+      >
 
-        <FolderUp className="w-12 h-12 text-gray-500 mb-3" />
+        <div className="flex flex-col items-center text-center">
 
-        <p className="text-sm text-gray-600">
-          Maximum file size is 100MB
-        </p>
+          <div className="bg-indigo-50 p-4 rounded-xl mb-4">
+            <FolderUp className="w-12 h-12 text-indigo-600" />
+          </div>
 
-        <p className="text-sm text-gray-500 mb-4">
-          Supported formats: PNG, PDF, JPG, JPEG, DOCS
-        </p>
+          <p className="text-gray-900 text-lg font-semibold">
+            Maximum file size is 100MB
+          </p>
 
-        <label className="cursor-pointer bg-black text-white px-5 py-2.5 
-                          rounded-lg text-sm font-medium 
-                          hover:bg-gray-800 transition">
-          Select Files
-          <input 
-            type="file" 
-            onChange={handleChange} 
-            hidden
-          />
-        </label>
+          <p className="text-zinc-400 text-sm mt-2 mb-4">
+            Supported formats: PNG, PDF, JPG, JPEG, DOCS
+          </p>
+
+          <label className="bg-indigo-600 hover:bg-indigo-700 transition cursor-pointer px-6 py-2 font-medium rounded-md text-white text-sm">
+            Select Files
+            <input
+              type="file"
+              onChange={handleChange}
+              hidden
+            />
+          </label>
+
+        </div>
 
       </div>
     </div>

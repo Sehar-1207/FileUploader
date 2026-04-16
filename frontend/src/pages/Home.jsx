@@ -20,7 +20,8 @@ const Home = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8 px-4">
+    <div className="min-h-screen bg-[url('https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/hero/bg-gradient.png')] bg-cover bg-center py-8 px-4">
+
       <div className="max-w-5xl mx-auto">
 
         {/* Upload Box */}
@@ -57,7 +58,6 @@ const Home = () => {
             Overview of every files or documents that you have stored
           </p>
 
-          {/* Empty State */}
           {files.length === 0 ? (
             <div className="text-center py-14 text-gray-400 text-sm">
               No files uploaded yet
