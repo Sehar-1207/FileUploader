@@ -53,12 +53,12 @@ export const uploadFile = async (req, res) => {
       return res.status(400).json({ message: "No file uploaded" });
     }
 
+    console.log("REQ FILE:", req.file);
     const { originalname, mimetype, size, buffer } = file;
 
-    const fileType = getFileType(mimetype);
+    const fileType = getFileType(mimetype).toLowerCase();
     const deleteCode = Math.floor(1000 + Math.random() * 9000).toString();
 
-    // Upload to Cloudinary
     const result = await new Promise((resolve, reject) => {
       const stream = cloudinary.uploader.upload_stream(
         { resource_type: "auto" },
@@ -71,23 +71,29 @@ export const uploadFile = async (req, res) => {
       streamifier.createReadStream(buffer).pipe(stream);
     });
 
-    // Save to DB
+    if (!result || !result.secure_url) {
+      throw new Error("Cloudinary upload failed");
+    }
+
     const newFile = await File.create({
       fileName: originalname,
       fileUrl: result.secure_url,
       publicId: result.public_id,
       fileType,
-      fileSize: size,
+      fileSize: Number(size),
       deleteCode,
     });
 
-    res.status(201).json({
+    return res.status(201).json({
       message: "File uploaded successfully",
       file: newFile,
       deleteCode,
     });
+
   } catch (error) {
-    res.status(500).json({
+    console.log("UPLOAD ERROR:", error);
+
+    return res.status(500).json({
       message: "File upload failed",
       error: error.message,
     });
