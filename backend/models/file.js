@@ -37,6 +37,11 @@ const fileSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    shareId: {
+      type: String,
+      unique: true,
+      required:true,
+    }
   },
   {
     timestamps: true,

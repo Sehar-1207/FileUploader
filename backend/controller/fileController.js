@@ -2,6 +2,7 @@ import axios from "axios";
 import cloudinary from "../config/cloudinary.js";
 import File from "../models/file.js";
 import streamifier from "streamifier";
+import { v4 as uuidv4 } from "uuid";
 
 // -------------------------
 // Helper: detect file type
@@ -53,15 +54,30 @@ export const uploadFile = async (req, res) => {
       return res.status(400).json({ message: "No file uploaded" });
     }
 
-    console.log("REQ FILE:", req.file);
     const { originalname, mimetype, size, buffer } = file;
 
     const fileType = getFileType(mimetype).toLowerCase();
     const deleteCode = Math.floor(1000 + Math.random() * 9000).toString();
 
+    // dynamic resource type
+    const resourceType =
+      mimetype.startsWith("image/")
+        ? "image"
+        : mimetype.startsWith("video/")
+        ? "video"
+        : mimetype.startsWith("audio/")
+        ? "video"
+        : "raw";
+
     const result = await new Promise((resolve, reject) => {
       const stream = cloudinary.uploader.upload_stream(
-        { resource_type: "auto" },
+        {
+          resource_type: resourceType,
+          type: "upload",
+          access_mode: "public",
+          use_filename: true,
+          unique_filename: false
+        },
         (error, result) => {
           if (error) reject(error);
           else resolve(result);
@@ -78,6 +94,7 @@ export const uploadFile = async (req, res) => {
     const newFile = await File.create({
       fileName: originalname,
       fileUrl: result.secure_url,
+      shareId: uuidv4(),
       publicId: result.public_id,
       fileType,
       fileSize: Number(size),
@@ -141,6 +158,7 @@ export const downloadFile = async (req, res) => {
     res.setHeader("Content-Type", "application/octet-stream");
 
     response.data.pipe(res);
+
   } catch (error) {
     res.status(500).json({
       message: "Failed to download file",
@@ -170,10 +188,29 @@ export const deleteFile = async (req, res) => {
     await File.findByIdAndDelete(id);
 
     res.status(200).json({ message: "File deleted successfully" });
+
   } catch (error) {
     res.status(500).json({
       message: "Failed to delete file",
       error: error.message,
     });
+  }
+};
+
+// -------------------------
+// Publically share File
+// -------------------------
+export const getSharedFile = async (req, res) => {
+  try {
+    const file = await File.findOne({ shareId: req.params.id });
+
+    if (!file) {
+      return res.status(404).json({ message: "File not found" });
+    }
+
+    res.json(file);
+
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 };

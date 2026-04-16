@@ -1,6 +1,9 @@
 import axios from "axios";
 const API = "http://localhost:5000/api/files";
 
+export const getSharedFile = (id) =>
+  axios.get(`http://localhost:5000/api/files/share/${id}`);
+
 // -------------------------
 // Upload File
 // -------------------------

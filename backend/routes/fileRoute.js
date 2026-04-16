@@ -4,6 +4,7 @@ import {
   getFiles,
   downloadFile,
   deleteFile,
+  getSharedFile,
 } from "../controller/fileController.js";
 
 import upload from "../middleware/middleware.js";
@@ -21,5 +22,8 @@ router.get("/download/:id", downloadFile);
 
 // Delete file (FIXED)
 router.delete("/:id/:code", deleteFile);
+
+// Public file sharing Route
+router.get("/share/:id", getSharedFile);
 
 export default router;
