@@ -1,0 +1,16 @@
+@import "tailwindcss";
+.loader {
+  aspect-ratio: 1;
+  --g: no-repeat radial-gradient(farthest-side, #1717ff 94%, #0000);
+  background:
+    var(--g) 0 0,
+    var(--g) 100% 0,
+    var(--g) 100% 100%,
+    var(--g) 0 100%;
+  background-size: 40% 40%;
+  animation: l38 .5s infinite;
+}
+
+@keyframes l38 {
+  100% { background-position: 100% 0, 100% 100%, 0 100%, 0 0 }
+}
