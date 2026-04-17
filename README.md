@@ -142,9 +142,27 @@ uuid: ^13.0.0
 ---
 
 ## 📸 Screenshots
-<p align="center"> <img src="https://via.placeholder.com/800x400?text=Main+Application+View" alt="Main Application View" width="80%"/> </p> 
-<p align="center"> <img src="https://via.placeholder.com/800x400?text=Feature+Showcase" alt="Feature Showcase" width="80%"/> </p>
 
+<p align="center">
+  <img 
+    src="https://raw.githubusercontent.com/Sehar-1207/FileUploader/0f9c486bb425f75f42ff1d6cfeadc08c2b8de157/Screenshot%202026-04-17%20113629.png"
+    alt="Main Application View"
+    width="80%">
+</p>
+
+<p align="center">
+  <img 
+    src="https://raw.githubusercontent.com/Sehar-1207/FileUploader/0f9c486bb425f75f42ff1d6cfeadc08c2b8de157/image.png"
+    alt="Feature Showcase"
+    width="80%">
+</p>
+
+<p align="center">
+  <img 
+    src="https://raw.githubusercontent.com/Sehar-1207/FileUploader/4c2faa86fa3ccc425a0f0cbd06069f07a782bc79/Screenshot%202026-04-17%20114100.png"
+    alt="Upload Result Screen"
+    width="80%">
+</p>
 ---
 
 ## 👥 Contributing
